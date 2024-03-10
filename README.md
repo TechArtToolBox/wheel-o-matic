@@ -2,4 +2,5 @@
 Blender add-on for automatic rotation of wheels
 
 ## Installation
-- [Click here to to to the latest version](https://github.com/TechArtToolBox/wheel-o-matic/releases/latest). On that page, click the .zip file and save it wherever you like. 
+- [Click here to download the latest version](https://github.com/TechArtToolBox/wheel-o-matic/releases/download/wheel_o_matic_v1.0.0/wheel_o_matic_v1.0.0.zip). Save the zip file anywhere you like.
+-  
