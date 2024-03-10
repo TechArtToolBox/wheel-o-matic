@@ -9,7 +9,6 @@ Blender add-on for automatic rotation of wheels
 ## Initial wheel setup
 - Click on the "Wheel-O-matic" tab in the 3d view sidebar to bring up the UI.
 - Select the geo of your wheel. 
-- IMPORTANT: apply rotation and scale to the wheel geo before using the addon for best results. Location is fine to leave as-is. 
-- 
+- IMPORTANT: apply rotation and scale to the wheel geo before using the addon for best results. (ctrl+a hotkey, then Rotation & Scale from the menu)
 - In the Wheel-O-Matic UI, click "Create Wheel Locator" to initialize wheel setup for the selected wheels.
 
