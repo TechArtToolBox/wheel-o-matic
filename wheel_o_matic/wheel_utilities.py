@@ -136,7 +136,7 @@ bpy.app.driver_namespace['wheel_logic'] = wheel_logic"""
                 obj[scripted_rotation] = 0.0
 
                 # define tool tips
-                desc_radius = 'Radius of the wheel geo this locator drives. Adjust as needed to match geo'
+                desc_radius = 'Radius of the wheel geo this controller drives. Adjust as needed to match geo'
                 desc_auto_rot = 'Strength of the automatic rotation. Type in values to go beyond the -1 to 1 range if needed'
                 desc_manual_rot = 'Manually rotate the wheel on top of the automatic rotation'
                 desc_total_rot = 'Total rotation of the wheel in radians. (auto and manual rotation)'
@@ -299,8 +299,6 @@ def find_drivers_by_expression(obj,expression):
         if exp == expression:
             #do stuff
             pass
-
-
 
 
 classes = [OBJECT_OT_create_wheel_logic_empty,OBJECT_OT_zero_scripted_rotation,
