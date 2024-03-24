@@ -108,8 +108,8 @@ bpy.app.driver_namespace['wheel_logic'] = wheel_logic"""
                 z_offset = z_width/2
                 bpy.ops.object.empty_add(type='SINGLE_ARROW')
                 obj = bpy.context.object
-                obj.name = wheel.name + '_locator'
-                obj.location = loc[0],loc[1],loc[2] - z_offset
+                obj.name = wheel.name + '_controller'
+                obj.delta_location = loc[0],loc[1],loc[2] - z_offset
                 if x_width <= y_width:
                     obj.delta_rotation_euler[0] = math.radians(-90)
                 else:
