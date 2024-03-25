@@ -64,7 +64,7 @@ def wheel_logic(mtx,self):
     if obj.delta_rotation_euler[0] < 0 or obj.delta_rotation_euler[1] < 0:
         inverter = -1
         manual_rot_inverter = -1
-    if obj['scripted_rotation_invert'] == True:
+    if obj['auto_rotation_invert'] == True:
         inverter = inverter*(-1)
     radius = obj['radius'] 
     rad_min = 0.001
@@ -121,7 +121,7 @@ bpy.app.driver_namespace['wheel_logic'] = wheel_logic"""
                 # add custom properties
                 obj['auto_rotation'] = 0.0
                 obj['position_old'] = (0.0,0.0,0.0)
-                obj['scripted_rotation_invert'] = False
+                obj['auto_rotation_invert'] = False
 
                 auto_strength = 'auto_rot_power'
                 obj[auto_strength] = 1.0
@@ -132,14 +132,14 @@ bpy.app.driver_namespace['wheel_logic'] = wheel_logic"""
                 radius_property = 'radius'
                 obj[radius_property] = radius
 
-                scripted_rotation = 'scripted_rotation'
-                obj[scripted_rotation] = 0.0
+                total_rotation = 'total_rotation'
+                obj[total_rotation] = 0.0
 
                 # define tool tips
-                desc_radius = 'Radius of the wheel geo this controller drives. Adjust as needed to match geo'
-                desc_auto_rot = 'Strength of the automatic rotation. Type in values to go beyond the -1 to 1 range if needed'
-                desc_manual_rot = 'Manually rotate the wheel on top of the automatic rotation'
-                desc_total_rot = 'Total rotation of the wheel in radians. (auto and manual rotation)'
+                desc_radius = 'Initial radius of the wheel geo this controller drives. This is calculated automatically when a controller is created. Adjust only if needed'
+                desc_auto_strength = 'Strength of the automatic rotation. Negative values reverse the rotation. Type in values to go beyond the -1 to 1 range if needed'
+                desc_manual_rot = 'Manually rotate the wheel on top of the auto rotation'
+                desc_auto00_rot = 'Auto rotation of the wheel in degrees'
                 desc_invert_rot = 'Invert the AUTO rotation direction that the wheel currently rotates'
 
 
@@ -148,13 +148,11 @@ bpy.app.driver_namespace['wheel_logic'] = wheel_logic"""
                 if BLENDER_VERSION >= (3,0,0):
                     # for blender 3.0.0 and above
                     property_manager = obj.id_properties_ui(auto_strength)
-                    property_manager.update(soft_min=-1, soft_max=1, description = desc_auto_rot)
+                    property_manager.update(soft_min=-1, soft_max=1, description = desc_auto_strength)
                     property_manager = obj.id_properties_ui(manual_rotation)
                     property_manager.update(step=10, description = desc_manual_rot)
                     property_manager = obj.id_properties_ui(radius_property)
                     property_manager.update(min=0.001, description = desc_radius)
-                    property_manager = obj.id_properties_ui(scripted_rotation)
-                    property_manager.update(description = desc_total_rot)
 
                 else:
                     # for anything older than 3.0.0
@@ -162,21 +160,19 @@ bpy.app.driver_namespace['wheel_logic'] = wheel_logic"""
                     ui['description'] = desc_radius
                     ui['min'] = 0.001
                     ui = rna_idprop_ui_prop_get(obj, auto_strength)
-                    ui['description'] = desc_auto_rot
+                    ui['description'] = desc_auto_strength
                     ui['use_soft_limits'] = True
                     ui['soft_min'] = -1
                     ui['soft_max'] = 1
                     ui = rna_idprop_ui_prop_get(obj, manual_rotation)
                     ui['description'] = desc_manual_rot
-                    ui = rna_idprop_ui_prop_get(obj, scripted_rotation)
-                    ui['description'] = desc_total_rot
 
                 
 
                 
     
                 # scripted rotation driver
-                fcurve = obj.driver_add('["scripted_rotation"]')
+                fcurve = obj.driver_add('["total_rotation"]')
                 driver = fcurve.driver
                 driver.use_self = True
                 driver.expression = 'wheel_logic(matrix_world,self)'
@@ -193,9 +189,9 @@ bpy.app.driver_namespace['wheel_logic'] = wheel_logic"""
                 bpy.data.scenes['Scene'].frame_set(currentFrame)
                 obj["auto_rotation"] = 0.0
 
-class OBJECT_OT_zero_scripted_rotation(bpy.types.Operator):
+class OBJECT_OT_zero_auto_rotation(bpy.types.Operator):
     """Reset AUTO wheel rotation to zero"""
-    bl_idname = 'object.zero_scripted_rotation'
+    bl_idname = 'object.zero_auto_rotation'
     bl_label = 'Reset auto wheel rotation to zero'
     bl_options = {"REGISTER", "UNDO"}
 
@@ -218,9 +214,9 @@ class OBJECT_OT_zero_scripted_rotation(bpy.types.Operator):
 
 
 class OBJECT_OT_drive_x_rotation(bpy.types.Operator):
-    """Connect rotation info to the X rotation"""
+    """Connect controller rotation info to the X rotation of another object"""
     bl_idname = 'object.drive_x_rotation'
-    bl_label = 'Connect rotation info to the X rotation'
+    bl_label = 'Connect controller rotation info to the X rotation of another object'
     bl_options = {"REGISTER", "UNDO"}
     
     def execute(self,context):
@@ -229,9 +225,9 @@ class OBJECT_OT_drive_x_rotation(bpy.types.Operator):
 
 
 class OBJECT_OT_drive_y_rotation(bpy.types.Operator):
-    """Connect rotation info to the Y rotation"""
+    """Connect controller rotation info to the Y rotation of another object"""
     bl_idname = 'object.drive_y_rotation'
-    bl_label = 'Connect rotation info to the Y rotation'
+    bl_label = 'Connect controller rotation info to the Y rotation of another object'
     bl_options = {"REGISTER", "UNDO"}
     
     def execute(self,context):
@@ -240,15 +236,16 @@ class OBJECT_OT_drive_y_rotation(bpy.types.Operator):
         return {'FINISHED'}
     
 class OBJECT_OT_drive_z_rotation(bpy.types.Operator):
-    """Connect rotation info to the Z rotation"""
+    """Connect controller rotation info to the Z rotation of another object"""
     bl_idname = 'object.drive_z_rotation'
-    bl_label = 'Connect rotation info to the Z rotation'
+    bl_label = 'Connect controller rotation info to the Z rotation of another object'
     bl_options = {"REGISTER", "UNDO"}
     
     def execute(self,context):
         # set up driver 
         drive_rotation(2)
         return {'FINISHED'}
+
 
 
 def drive_rotation(axis):
@@ -279,14 +276,14 @@ def drive_rotation(axis):
         # create driver
         fcurve = target.driver_add('rotation_euler', axis)
         driver = fcurve.driver
-        driver.expression = 'scripted_rotation'
+        driver.expression = 'total_rotation'
         var = driver.variables.new()
         var.type = 'SINGLE_PROP'
-        var.name = 'scripted_rotation'
+        var.name = 'total_rotation'
         targets = var.targets
         targets[0].transform_space = 'WORLD_SPACE'
         targets[0].id = locator
-        targets[0].data_path = '["scripted_rotation"]'
+        targets[0].data_path = '["total_rotation"]'
 
 
 def find_drivers_by_expression(obj,expression):
@@ -295,11 +292,10 @@ def find_drivers_by_expression(obj,expression):
     for fcurve in drivers:
         driver = fcurve.driver
         exp = driver.expression
-        print(driver.expression)
         if exp == expression:
             #do stuff
             pass
 
 
-classes = [OBJECT_OT_create_wheel_logic_empty,OBJECT_OT_zero_scripted_rotation,
+classes = [OBJECT_OT_create_wheel_logic_empty,OBJECT_OT_zero_auto_rotation,
            OBJECT_OT_drive_x_rotation,OBJECT_OT_drive_y_rotation,OBJECT_OT_drive_z_rotation]

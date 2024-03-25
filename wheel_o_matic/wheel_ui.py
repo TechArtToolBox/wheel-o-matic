@@ -1,29 +1,38 @@
 import bpy
+from math import degrees
 
 
 # get/set for custom ui elements in the property group class below
 def get_invert_rotation(self):
-    return bpy.context.object['scripted_rotation_invert']
+    return bpy.context.object['auto_rotation_invert']
 
 def set_invert_rotation(self,value):
-    bpy.context.object['scripted_rotation_invert'] = value
+    bpy.context.object['auto_rotation_invert'] = value
+
+def get_auto_rotation(self):
+    rot_in_radians = bpy.context.object['auto_rotation']
+    output = degrees(rot_in_radians)
+    return output
+
 
 # Property group for custom ui elements 
 class Wheel_UI_Properties(bpy.types.PropertyGroup):
 
-    desc_invert_rot = 'Invert the AUTO rotation direction that the wheel currently rotates'                    
+    desc_invert_rot = 'Invert the AUTO rotation direction that the wheel currently rotates'  
+    auto_rotation =   'Auto rotation of the wheel in degrees'                  
     b_invert_rotation   :   bpy.props.BoolProperty (name = 'Invert Auto Rotation', description = desc_invert_rot,
                             get=get_invert_rotation, set=set_invert_rotation)
+    
+    f_auto_rotation   :    bpy.props.FloatProperty (name = 'Auto Rotation', description = auto_rotation,
+                            get=get_auto_rotation)
     
 
 class VIEW3D_PT_wheel_o_matic_init(bpy.types.Panel):
     """panel for the initial setup of controller based on selected wheel geo"""
     bl_label = "Create Controllers"
-    # bl_parent_id = "VIEW3D_PT_wheel_o_matic"
     bl_category = 'Wheel-O-Matic'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_options = {"DEFAULT_CLOSED"}
 
     def draw(self, context):
         col = self.layout.column()
@@ -37,7 +46,6 @@ class VIEW3D_PT_wheel_o_matic_init(bpy.types.Panel):
 class VIEW3D_PT_wheel_o_matic_connect(bpy.types.Panel):
     """panel for connecting total rotation of driver to the rotation of another object"""
     bl_label = "Connect Controller"
-    # bl_parent_id = "VIEW3D_PT_wheel_o_matic"
     bl_category = 'Wheel-O-Matic'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -62,7 +70,6 @@ class VIEW3D_PT_wheel_o_matic_connect(bpy.types.Panel):
 class VIEW3D_PT_wheel_o_matic_settings(bpy.types.Panel):
     """panel to show settings for a wheel-o-matic driver"""
     bl_label = "Adjust Controllers"
-    # bl_parent_id = "VIEW3D_PT_wheel_o_matic"
     bl_category = 'Wheel-O-Matic'
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -77,17 +84,15 @@ class VIEW3D_PT_wheel_o_matic_settings(bpy.types.Panel):
             selected_objs = bpy.context.selected_objects
             sel0 = selected_objs[0]
             if sel0:
-                col.prop(sel0,'["radius"]',text='Wheel Radius')
+                col.prop(sel0,'["radius"]',text='Inital Wheel Radius')
                 col.prop(sel0,'["auto_rot_power"]',text='Auto Rotate Power')
                 col.prop(sel0,'["manual_rotation"]',text='Manual Rotation')
                 col.separator()
                 col.prop(w_ui, 'b_invert_rotation')
-                col.operator('object.zero_scripted_rotation', text='Clear Auto Rotation')
                 col.separator()
-                col.separator()
-                col2 = self.layout.column()
-                col2.enabled = False
-                col2.prop(sel0,'["scripted_rotation"]',text='Total Rotation')
+                col.prop(w_ui,'f_auto_rotation')
+                col.operator('object.zero_auto_rotation', text='Clear Auto Rotation')
+
         else:
             for i in range(3):
                 col.label(text='')
@@ -113,7 +118,7 @@ def selection_check():
     else:
         wheel_locator_counter = 0
         for obj in selected:
-            if obj.get('scripted_rotation') is not None:
+            if obj.get('auto_rot_power') is not None:
                 wheel_locator_counter +=1
 
         if wheel_locator_counter == 0:
