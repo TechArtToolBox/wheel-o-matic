@@ -16,6 +16,7 @@ Automatic wheel rotation add-on for Blender (2.83 and above)
     This controller outputs rotation information that matches the geo of your wheel as it moves through the scene as long as the wheel controller moves along with the wheel. 
  
 - Connect Controller
+- 
   The wheel controller now needs to know what rotation to drive. Rotation can be connected to the geo directly, or to part of a larger rig.
   The rotation information can be connected to any one of the following:
   - wheel geo directly
