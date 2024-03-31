@@ -185,8 +185,9 @@ bpy.app.driver_namespace['wheel_logic'] = wheel_logic"""
                 targets[0].data_path = 'matrix_world'
 
                 # force update total rotation to be zeroed out on creation
-                currentFrame = bpy.data.scenes['Scene'].frame_current
-                bpy.data.scenes['Scene'].frame_set(currentFrame)
+                scene = bpy.context.scene.name
+                currentFrame = bpy.data.scenes[scene].frame_current
+                bpy.data.scenes[scene].frame_set(currentFrame)
                 obj["auto_rotation"] = 0.0
 
 class OBJECT_OT_zero_auto_rotation(bpy.types.Operator):
