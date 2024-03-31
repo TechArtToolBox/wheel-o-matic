@@ -8,7 +8,7 @@ Blender add-on for automatic wheel rotation (Blender 2.83 and above)
 - Install like any other add-on.
 - The add-on interface can be found in the sidebar of the 3d viewport once installed. 
 
-## Wheel setup
+## Wheel Setup Quick Start
 
 
 
