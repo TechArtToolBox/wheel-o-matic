@@ -1,6 +1,7 @@
 # Wheel-O-Matic
-Automatic wheel rotation rig add-on for Blender (2.83 and above)
-This add-on can be used to automatically drive the rotation of any wheel, and can be incorporated into any rig if need be. 
+Blender add-on for automatic wheel rotation (2.83 and above)
+
+Automaticall rotate any wheel as it moves around the scene, regardless of direction or scale changes.
 
 ## Installation
 - [Find the latest version here](https://github.com/TechArtToolBox/wheel-o-matic/releases/latest). Save the wheel_o_matic zip file to your computer.
@@ -8,7 +9,6 @@ This add-on can be used to automatically drive the rotation of any wheel, and ca
 - The addon interface can be found in the sidebar of the 3d viewport once installed. 
 
 ## Wheel setup
-- 
 
 
 
