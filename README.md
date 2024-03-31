@@ -1,6 +1,5 @@
 # Wheel-O-Matic
-Blender add-on for automatic wheel rotation (2.83 and above)
-
+Blender add-on for automatic wheel rotation (Blender 2.83 and above)
 Automaticall rotate any wheel as it moves around the scene, regardless of direction or scale changes.
 
 ## Installation
