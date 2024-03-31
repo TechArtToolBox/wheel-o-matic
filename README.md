@@ -5,7 +5,7 @@ Blender add-on for automatic wheel rotation (Blender 2.83 and above)
   - Automatic rotation works in any direction, regardless of what is moving the wheel. Also works with dynamic scale.
   - Quick setup (less than a minute once installed)
   - Modular, can be added to almost any rig
-  - Controls to override and adjust the automation
+  - Extra controls to adjust the automatic rotation
   - Non destructive, can easily be removed
 
 ## Installation
