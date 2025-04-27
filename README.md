@@ -2,9 +2,9 @@
 Blender add-on for automatic wheel rotation (Blender 3.0 and above)
 - About:
   - Wheel-O-Matic is used rotate wheels automatically.
-  - Auto rotation can be applied to meshes or bones. 
-  - Automatic rotation works in any direction.
-  - Non destructive, can easily be removed.
+  -  Automatic rotation works in any direction.
+  - Auto rotation can be applied to meshes or bones.
+  - Completely additive, and can easily be removed.
 
 ## Installation
 - [Find the latest version here](https://github.com/TechArtToolBox/wheel-o-matic/releases/latest). Save the wheel_o_matic zip file to your computer.
