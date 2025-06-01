@@ -2,33 +2,38 @@
 Blender add-on to automate wheel rotation in any direction. Works with meshes and bones.(Blender 3.0 and above)
 
 ## Installation
-- [Download the latest version here](https://github.com/TechArtToolBox/wheel-o-matic/blob/main/wheel_o_matic_v1.0.0.zip). Save the Wheel-O-Matic zip file to your computer.
+- [Download the latest Wheel-O-Matic version here](https://github.com/TechArtToolBox/wheel-o-matic/blob/main/wheel_o_matic_v1.0.0.zip)
 - Install like any other Blender add-on/extention.
-- In the 3D View sidebar, there will be a tab called Wheel-O-Matic
+- Wheel-O-Matic will be located in the 3D View sidebar
 
 
 ## Mesh Wheels quickstart
 - Be sure that your wheel(s) aim down either the Y or X global axis, and that they already rotate correctly on a single axis.
-- Highly recomend applying any existing scale and rotation for best results, but it is optional.  
+- Highly recommended to apply any existing scale and rotation for best results. (totally optional, but can help prevent gimbal lock)
+  - <sub>If unfamiliar with applying transforms, you can do so by selecting the geo and pressing ctrl+a on the keyboard to bring up the apply menu. From the dropdown select Rotation and Scale</sub>
 - Select the wheel(s) to be automated.
 - In the Wheel-O-Matic tab, click 'Automate'
 - If a wheel has no parent, a controller will be created. Use this controller to move the wheel around and roll automatically.
-- If a wheel HAS a parent, the parent can be moved (or anything higher up the chain) to see the wheels rotate along with the movement.
+- If a wheel HAS a parent, the parent (or anything higher up the chain) can be moved to see the wheels rotate along with the movement.
+- Yellow locators will be created to show if the setup is correct or not. The locator should be at the base of the wheel, and have arrows that point in the forward and reverse direction of the wheel.
 
-## Bone Driven Wheel quickstart
+## Bone Driven Wheels quickstart
+- Be sure that the bone(s) can already rotate the wheel(s) they control correctly.
 - Select an armature, and enter Pose mode. The Wheel-O-Matic UI will adjust to match bone setup.
-- In the 3D view, select a bone that drives a wheel.
-- In the Wheel-O-Matic tab under 'Reference Wheel Geo' use the picker to select the mesh associated with this bone.
-- click 'Automate' to automate the bone's rotation based on the wheel's dimensions.
+- For each bone that drives a wheel:
+  - In the 3D view, select the bone.
+  - In the Wheel-O-Matic tab under 'Reference Wheel Geo' use the picker to select the mesh associated with this bone.
+  - click 'Automate' to automate the bone's rotation based on the wheel's dimensions.
+  - Yellow locators will be created to show if the setup is correct or not. The locator should be at the base of the wheel, and have arrows that point in the forward and reverse direction of the wheel.
 
-## Adjusting
-- With an automated mesh wheel or automated bone selected, twirl open the 'Adjust' panel in the Wheel-O-Matic tab to see the 'Rotation Power' and 'Radius' options.
-  - **Rotation power** Changes automation strength. Zero means no rotation, negative values spin the wheel in reverse.
-  - **Radius** Changes the radius of the wheel. This rarely needs to be changed.
-- Both of these can be keyed as needed.
+## Adjust Panel
+These options become availible when a single automated mesh wheel, or single automated bone is selected. Both of these values can be keyed as needed.
+- **Rotation power**
+  - Changes automation strength. Zero means no rotation, negative values spin the wheel in reverse.
+- **Radius**
+  - Changes the radius of the wheel. Use the locators as a guide to match radius to the size of the wheel. This rarely needs to be changed.
   
-## Utilities
-- In the Wheel-O-Matic tab twirl down the 'utilities' panel for general utilities related to wheel automation.
+## Utilities Panel
   - **Clear Auto Rotation**
     - This will zero out auto rotation for any automated mesh wheels or bones that are selected.
   - **Remove Automation**
