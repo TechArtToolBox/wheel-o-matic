@@ -18,7 +18,7 @@ Blender add-on to automate wheel rotation in any direction. Works with meshes an
 - Locators will also be created. These can be used to make sure the wheel is setup correctly. The locator should be at the base of the wheel, and have arrows that point in the forward and reverse direction of the wheel.
 
 ## Bone Driven Wheels quickstart
-- Be sure that the bone(s) can already rotate the wheel(s) they control correctly.
+- Be sure that the bone(s) can already rotate the wheel(s) they control correctly, and that they do so on a single axis.
 - Select an armature, and enter Pose mode. The Wheel-O-Matic UI will adjust to match bone setup.
 - For each bone that drives a wheel:
   - Select the pose bone in the 3D view.
