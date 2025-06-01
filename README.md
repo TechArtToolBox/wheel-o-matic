@@ -15,16 +15,16 @@ Blender add-on to automate wheel rotation in any direction. Works with meshes an
 - In the Wheel-O-Matic tab, click 'Automate'
 - If a wheel has no parent, a controller will be created. Use this controller to move the wheel around and roll automatically.
 - If a wheel HAS a parent, the parent (or anything higher up the chain) can be moved to see the wheels rotate along with the movement.
-- Yellow locators will be created to show if the setup is correct or not. The locator should be at the base of the wheel, and have arrows that point in the forward and reverse direction of the wheel.
+- Locators will also be created. These can be used to make sure the wheel is setup correctly. The locator should be at the base of the wheel, and have arrows that point in the forward and reverse direction of the wheel.
 
 ## Bone Driven Wheels quickstart
 - Be sure that the bone(s) can already rotate the wheel(s) they control correctly.
 - Select an armature, and enter Pose mode. The Wheel-O-Matic UI will adjust to match bone setup.
 - For each bone that drives a wheel:
-  - In the 3D view, select the bone.
-  - In the Wheel-O-Matic tab under 'Reference Wheel Geo' use the picker to select the mesh associated with this bone.
+  - Select the pose bone in the 3D view.
+  - In the Wheel-O-Matic tab, under 'Reference Wheel Geo' use the picker to select the mesh associated with this bone.
   - click 'Automate' to automate the bone's rotation based on the wheel's dimensions.
-  - Yellow locators will be created to show if the setup is correct or not. The locator should be at the base of the wheel, and have arrows that point in the forward and reverse direction of the wheel.
+  - Locators will also be created. These can be used to make sure the wheel is setup correctly. The locator should be at the base of the wheel, and have arrows that point in the forward and reverse direction of the wheel.
 
 ## Adjust Panel
 These options become available when a single automated mesh wheel, or single automated bone is selected. Both values can be keyed as needed.
