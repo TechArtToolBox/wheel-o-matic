@@ -7,7 +7,7 @@ Blender add-on for automatic wheel rotation (Blender 3.0 and above)
   - Completely additive, and can easily be removed.
 
 ## Installation
-- [Find the latest version here](https://github.com/TechArtToolBox/wheel-o-matic/releases/latest). Save the wheel_o_matic zip file to your computer.
+- [Download the latest version here](https://github.com/TechArtToolBox/wheel-o-matic/blob/main/wheel_o_matic_v1.0.0.zip). Save the wheel_o_matic zip file to your computer.
 - Install like any other Blender add-on/extention.
 - The Wheel-O-Matic UI can be found in the 3D viewport sidebar (if you don't see those tabs, press N on your keyboard)
 
