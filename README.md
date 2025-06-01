@@ -6,6 +6,8 @@ Blender add-on to automate wheel rotation in any direction. Works with meshes an
 - Install like any other Blender add-on/extension.
 - Wheel-O-Matic will be located in the 3D View sidebar
 
+  ![wheel_o_matic_tab](https://github.com/user-attachments/assets/5e1d31bb-f879-495a-bf90-538cbc7a61d0)
+
 
 ## Mesh Wheels quickstart
 - Be sure that your wheel(s) aim down either the Y or X global axis, and that they already rotate correctly on a single axis.
