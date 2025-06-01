@@ -3,7 +3,7 @@ Blender add-on to automate wheel rotation in any direction. Works with meshes an
 
 ## Installation
 - [Download the latest Wheel-O-Matic version here](https://github.com/TechArtToolBox/wheel-o-matic/blob/main/wheel_o_matic_v1.0.0.zip)
-- Install like any other Blender add-on/extention.
+- Install like any other Blender add-on/extension.
 - Wheel-O-Matic will be located in the 3D View sidebar
 
 
@@ -27,7 +27,7 @@ Blender add-on to automate wheel rotation in any direction. Works with meshes an
   - Yellow locators will be created to show if the setup is correct or not. The locator should be at the base of the wheel, and have arrows that point in the forward and reverse direction of the wheel.
 
 ## Adjust Panel
-These options become availible when a single automated mesh wheel, or single automated bone is selected. Both of these values can be keyed as needed.
+These options become available when a single automated mesh wheel, or single automated bone is selected. Both values can be keyed as needed.
 - **Rotation power**
   - Changes automation strength. Zero means no rotation, negative values spin the wheel in reverse.
 - **Radius**
