@@ -4,14 +4,15 @@
 
 # Legacy Support for BLENDER_VERSION < (4,2,0)
 bl_info = {
-    'name' : 'Wheel-O-Matic',
-    'author' : 'Tech Art Tool Box',
-    'version' : (1,0,0),
-    'blender' : (3,0,0),
-    'location' : '3D Viewport > Sidebar > Wheel-O-Matic',
-    'description' : 'Automatic wheel rotation in any direction. Works with meshes and bones.',
-    'doc_url': 'https://github.com/TechArtToolBox/wheel-o-matic/',
-    'category' : 'Rigging'
+    'name'          : 'Wheel-O-Matic',
+    'author'        : 'Tech Art Tool Box',
+    'version'       : (1,0,0),
+    'blender'       : (3,0,0),
+    'location'      : '3D Viewport > Sidebar > Wheel-O-Matic',
+    'description'   : 'Automatic wheel rotation in any direction. Works with meshes and bones.',
+    'doc_url'       : 'https://github.com/TechArtToolBox/wheel-o-matic/',
+    'tracker_url'   : 'https://github.com/TechArtToolBox/wheel-o-matic/issues/',
+    'category'      : 'Rigging'
     }
 
 

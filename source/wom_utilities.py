@@ -883,7 +883,7 @@ def scale_coords(coords):
 
 
 def get_ground_matrix_for_wom_mesh(wom_object):
-    """Return the calculated ground position and orientation of a wom driven WHEEL."""
+    """Return the calculated ground position and orientation of a wom driven MESH."""
     try:
         p = wom_object.wom.wom_defined_parent
         p_mtx = p.matrix_world

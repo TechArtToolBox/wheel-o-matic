@@ -10,7 +10,12 @@ from . import wom_utilities as wu
 
 # Drawing for locators
 def locators_draw_callback(self, context,shader,color,x_coords,y_coords):
-    """Callback to draw wom locators in the 3d View. """
+    """
+    Callback to draw wom locators in the 3d View. 
+    The locators are positioned where the automated mesh/bone 
+    thinks the ground contact of the wheel is, 
+    and oriented to match roll direction.
+    """
     
     # This try/except is to exit out in case of inability to find any wom properties on the scene
     try:
@@ -19,17 +24,18 @@ def locators_draw_callback(self, context,shader,color,x_coords,y_coords):
     except:
         return {'FINISHED'}
     
-    ## start of time check for performance
+    ## PERF CHECK START, uncomment to debug draw performance
     # start_time = time.perf_counter()
 
+    # Scale locators according to scalar in the UI
     x_coords = wu.scale_coords(x_coords)
     y_coords = wu.scale_coords(y_coords)
 
-    # NEW WAY on scene
+
+    # Get wom objects stored on the scene
     wom_driven_meshes = []
     wom_driven_armatures = []
     wom_references = bpy.context.scene.wom.wom_reference_collection
-
     for ref in wom_references:
         obj = ref.wom_object
         is_valid = wu.is_valid_reference(obj)
@@ -47,7 +53,7 @@ def locators_draw_callback(self, context,shader,color,x_coords,y_coords):
         ws_coords = []
         all_coords = []
 
-        # get locator coords for meshes
+        # get world space oriented locator coords for meshes
         for mesh_obj in wom_driven_meshes:
             if mesh_obj:
                 g_mtx = wu.get_ground_matrix_for_wom_mesh(mesh_obj)
@@ -60,7 +66,7 @@ def locators_draw_callback(self, context,shader,color,x_coords,y_coords):
                     ws_coords = wu.get_transformed_3d_coords(g_mtx,coords)
                     all_coords += ws_coords
 
-        # get locator coords for bones
+        # get world space oriented locator coords for bones
         for armature in wom_driven_armatures:
             driven_bones = wu.get_wom_driven_bones_from_armature(armature)
             for bone in driven_bones:
@@ -74,13 +80,14 @@ def locators_draw_callback(self, context,shader,color,x_coords,y_coords):
                     ws_coords = wu.get_transformed_3d_coords(g_mtx,coords)
                     all_coords += ws_coords
         
+        # Draw
         if len(all_coords) > 0:
             batch = batch_for_shader(shader, 'LINES', {"pos": all_coords})
             shader.bind()
             shader.uniform_float("color", color)
             batch.draw(shader)
 
-    ## end of time check for performance
+    ## PERF CHECK END, uncomment to debug draw performance (make sure to uncomment perf check start above)
     # end_time = time.perf_counter()
     # elapsed_time = end_time - start_time
     # print(f"Elapsed time: {elapsed_time:.6f} seconds")
@@ -88,7 +95,9 @@ def locators_draw_callback(self, context,shader,color,x_coords,y_coords):
 
 # Operator to START drawing locators
 class OBJECT_OT_wom_draw_locators(bpy.types.Operator):
-    """Toggle the drawing of Wheel-O-Matic locators. If they aren't turning off, restart Blender to fix"""
+    """Toggle the drawing of Wheel-O-Matic locators.
+ If they aren't turning off, restart Blender to fix"""
+
     bl_idname = 'object.wom_draw_locators'
     bl_label = 'Wheel-O-Matic: Draw locators'
 
@@ -182,7 +191,9 @@ class OBJECT_OT_wom_draw_locators(bpy.types.Operator):
 
 # Operator to STOP drawing locators
 class OBJECT_OT_wom_remove_locators(bpy.types.Operator):
-    """Toggle the drawing of Wheel-O-Matic locators. If they aren't turning off, restart Blender to fix"""
+    """Toggle the drawing of Wheel-O-Matic locators.
+ If they aren't turning off, restart Blender to fix"""
+
     bl_idname = 'object.wom_remove_locators'
     bl_label = 'Wheel-O-Matic: Remove locators'
 
