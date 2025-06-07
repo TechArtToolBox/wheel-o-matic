@@ -1,5 +1,5 @@
 # Wheel-O-Matic
-Blender add-on to the automate rotation of any wheel, in any direction.  
+Blender add-on to automate the rotation of any wheel, in any direction.  
 Works on vehicles, works on splines, works with meshes and bones.  
 (Blender 3.0 and above)
 
