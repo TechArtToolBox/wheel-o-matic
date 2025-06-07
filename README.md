@@ -7,8 +7,15 @@ Blender add-on to automate wheel rotation for any wheel, in any direction. Works
  ![one_wheel_demo](https://github.com/user-attachments/assets/2480f7b2-eaab-451c-9092-4c1ab9def830)
 
 
- #### Wheels On Vehicle:
+ #### Wheels On Vehicles:
  ![vehicle_demo_S2G_HQ128](https://github.com/user-attachments/assets/d1070134-beb8-40aa-9d7e-82dd23334676)
+
+
+ #### Incredibly Precise Rotation:
+
+![vehicle_demo_roll_accuracy_no_rim_loop](https://github.com/user-attachments/assets/48008a20-98a7-4f69-be2c-8e0d8ba187f2)
+
+
 
 
 ## Installation
