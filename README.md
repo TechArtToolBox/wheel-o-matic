@@ -11,10 +11,11 @@ Blender add-on to automate wheel rotation for any wheel, in any direction. Works
  ![vehicle_demo_S2G_HQ128](https://github.com/user-attachments/assets/d1070134-beb8-40aa-9d7e-82dd23334676)
 
 
- #### Incredibly Precise Rotation:
-
+ #### Precise Rotation For All Wheels:
 ![vehicle_demo_roll_accuracy_no_rim_loop](https://github.com/user-attachments/assets/48008a20-98a7-4f69-be2c-8e0d8ba187f2)
 
+<br>
+<br>
 
 
 
@@ -24,15 +25,46 @@ Blender add-on to automate wheel rotation for any wheel, in any direction. Works
 - Wheel-O-Matic will be located in the 3D View sidebar
 
   ![wheel_o_matic_tab](https://github.com/user-attachments/assets/5e1d31bb-f879-495a-bf90-538cbc7a61d0) 
-
+<br>
+<br>
 
 ## Mesh Wheels quickstart
+
+  - Make sure each wheel points in either X or Y and has it's origin at its center.
+  - Select the wheel(s) to be automated.
+  - In the Wheel-O-Matic tab, click '**Automate**' to apply the automation. Move the parent to see the result:
+    
+    ![wheels_quickstart_64c_240px](https://github.com/user-attachments/assets/191b5f5e-b6ab-4659-98cc-5a8e2f69ed8f)
+    
+  - If a wheel has no parent, an auto parent will be created:
+    
+    ![image](https://github.com/user-attachments/assets/f95f182c-2d39-41b4-ab00-73edf9cd2a59)
+
+
+ - See "**In Depth Mesh Wheel Setup**" section below if you run into issues.
+<br>
+<br>
+
+     
+
+
+## Bone Driven Wheels quickstart
+- Be sure that the bone(s) can already rotate the wheel(s) they control correctly, and that they do so on a single axis.
+- Select an armature, and enter Pose mode. The Wheel-O-Matic UI will adjust to match bone setup.
+- For each bone that drives a wheel:
+  - Select the pose bone in the 3D view.
+  - In the Wheel-O-Matic tab, under 'Reference Wheel Geo' use the picker to select the mesh associated with this bone.
+  - click 'Automate' to automate the bone's rotation based on the wheel's dimensions.
+ 
+  
+## In Depth Mesh Wheel Setup
 **1. Preflight check:**
   - Be sure that your wheel(s) and/or your vehicle are parallel to either the Y or X global axis, sit flat on the XY plane, and that the wheels already rotate correctly on a single axis (see good/bad images below)
   - Also highly recommended to apply any existing scale and rotation for best results. (totally optional, but it can help prevent Gimbal Lock later on with complex movements)
     - <sub>If unfamiliar with applying transforms, you can do so by selecting the geo and pressing ctrl+a on the keyboard to bring up the apply menu. From the dropdown select Rotation and Scale</sub>
 
-     ![image](https://github.com/user-attachments/assets/cb4695f1-98cf-46c4-8ede-151ed8db7034) ![image](https://github.com/user-attachments/assets/bcda90f1-e15d-4e85-bc38-936dac23d3ed)
+     ![image](https://github.com/user-attachments/assets/cb4695f1-98cf-46c4-8ede-151ed8db7034)
+    ![image](https://github.com/user-attachments/assets/bcda90f1-e15d-4e85-bc38-936dac23d3ed)
 
 
 **2. Automate the Wheels**
@@ -43,16 +75,6 @@ Blender add-on to automate wheel rotation for any wheel, in any direction. Works
   - If a wheel has no parent, a controller will be created. Use this controller to move the wheel around and check that it rolls correctly.
   - If a wheel HAS a parent, the parent (or anything higher up the chain) can be moved to see the wheels rotate along with the movement.
   - Locators will also be created. These can be used to make sure the wheel is setup correctly. The locator(s) should be at the base of the wheel(s), and have arrows that point in the forward and reverse direction of the wheel(s).
-
-
-## Bone Driven Wheels quickstart
-- Be sure that the bone(s) can already rotate the wheel(s) they control correctly, and that they do so on a single axis.
-- Select an armature, and enter Pose mode. The Wheel-O-Matic UI will adjust to match bone setup.
-- For each bone that drives a wheel:
-  - Select the pose bone in the 3D view.
-  - In the Wheel-O-Matic tab, under 'Reference Wheel Geo' use the picker to select the mesh associated with this bone.
-  - click 'Automate' to automate the bone's rotation based on the wheel's dimensions.
-  - Locators will also be created. These can be used to make sure the wheel is setup correctly. The locator should be at the base of the wheel, and have arrows that point in the forward and reverse direction of the wheel.
 
 ## Adjust Panel
 These options become available when a single automated mesh wheel, or single automated bone is selected. Both values can be keyed as needed.
