@@ -6,10 +6,8 @@ Blender add-on to automate wheel rotation for any wheel, in any direction. Works
  #### Single Wheels:
  ![one_wheel_demo](https://github.com/user-attachments/assets/2480f7b2-eaab-451c-9092-4c1ab9def830)
 
-
  #### Wheels On Vehicles:
  ![vehicle_demo_S2G_HQ128](https://github.com/user-attachments/assets/d1070134-beb8-40aa-9d7e-82dd23334676)
-
 
  #### Precise Rotation For All Wheels:
 ![vehicle_demo_roll_accuracy_no_rim_loop](https://github.com/user-attachments/assets/48008a20-98a7-4f69-be2c-8e0d8ba187f2)
@@ -17,15 +15,12 @@ Blender add-on to automate wheel rotation for any wheel, in any direction. Works
 <br>
 <br>
 
-
-
 ## Installation
 - [Download the latest Wheel-O-Matic version here](https://github.com/TechArtToolBox/wheel-o-matic/blob/main/wheel_o_matic_v1.0.0.zip)
 - Install like any other Blender add-on/extension.
 - Wheel-O-Matic will be located in the 3D View sidebar
-
-  ![wheel_o_matic_tab](https://github.com/user-attachments/assets/5e1d31bb-f879-495a-bf90-538cbc7a61d0) 
-<br>
+  
+  ![image](https://github.com/user-attachments/assets/ad9e03ea-c06c-46a7-892f-918fa3375f2e)
 <br>
 
 ## Mesh Wheels quickstart
@@ -60,7 +55,7 @@ Blender add-on to automate wheel rotation for any wheel, in any direction. Works
 ## In Depth Mesh Wheel Setup
 **1. Preflight check:**
   - Be sure that your wheel(s) and/or your vehicle are parallel to either the Y or X global axis, sit flat on the XY plane, and that the wheels already rotate correctly on a single axis (see good/bad images below)
-  - Also highly recommended to apply any existing scale and rotation for best results. (totally optional, but it can help prevent Gimbal Lock later on with complex movements)
+  - Also highly recommended to apply any existing scale and rotation for best results. (optional, but it can help prevent Gimbal Lock later on with complex movements)
     - <sub>If unfamiliar with applying transforms, you can do so by selecting the geo and pressing ctrl+a on the keyboard to bring up the apply menu. From the dropdown select Rotation and Scale</sub>
 
      ![image](https://github.com/user-attachments/assets/cb4695f1-98cf-46c4-8ede-151ed8db7034)
