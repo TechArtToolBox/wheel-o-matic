@@ -41,7 +41,7 @@ Blender add-on to automate wheel rotation for any wheel, in any direction. Works
     ![image](https://github.com/user-attachments/assets/f95f182c-2d39-41b4-ab00-73edf9cd2a59)
 
 
- - See "**In Depth Mesh Wheel Setup**" section below if you run into issues.
+ - See the [In Depth Mesh Wheel Setup](#In-Depth-Mesh-Wheel-Setup) section below if you run into issues.
 <br>
 <br>
 
