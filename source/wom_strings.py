@@ -30,7 +30,6 @@ dns_key                     = 'wom_locators'
 
 
 #### UI hint strings
-desc_apply_trasforms    =   'Apply rotation and scale of the wheel geo to clean the transforms before setup'
 desc_auto_rot           =   'DO NOT EDIT! Doing so will break the wheel logic'
 desc_auto_rot_power     =   'Strength of the auto rotation. 1 is default. 0 is no rotation. Negative values reverse rotation. Type in values to go beyond the limits'
 desc_locator_scale      =   'Global scale for all of the wheel locators'
@@ -45,6 +44,7 @@ name_auto_rot_power     =   'Rotation Power'
 name_auto_rotation      =   'Auto Rotation'
 name_radius             =   'Radius'
 name_show_tracker       =   'Show Tracker'
+name_loc_scale_global   =   'Scale All Locators'
 
 text_clear_rotation     =   'Clear Auto Rotation'
 text_refresh_logic      =   'Refresh Wheel Logic'

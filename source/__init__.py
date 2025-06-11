@@ -2,7 +2,7 @@
 # Blender addon for automatic wheel rotation
 # Any reference in script to 'wom' is shorthand for Wheel-O-Matic related data
 
-# Legacy Support for BLENDER_VERSION < (4,2,0)
+# Legacy Support for Blender older than 4.2.0 (but not older than 3.0.0)
 bl_info = {
     'name'          : 'Wheel-O-Matic',
     'author'        : 'Tech Art Tool Box',
@@ -47,7 +47,6 @@ def register():
         bpy.utils.register_class(cls)
 
     
-
     #### Register Properties
 
     # UI PropertyGroup
@@ -64,7 +63,6 @@ def register():
 
     # Properties Not In A PropertyGroup
     wom_properties.register_top_level_properties()
-
 
 
     #### Register Wheel Logic In The Driver Namespace
@@ -112,9 +110,9 @@ def unregister():
 #### Post load handling (called above for global wheel logic)
 @persistent
 def custom_load_handling(scene):
-    """Add wheel logic to the driver_namespace once Blender has loaded."""
+    """ Prep a scene for Wheel-O-Matic after a file is opened."""
+
+    # register wheel logic to the driver_namespace once Blender has loaded.
     bpy.app.driver_namespace['wom_wheel_logic'] = wom_utilities.wom_wheel_logic
 
 
-if __name__ == "__main__":
-    register()

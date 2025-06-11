@@ -6,7 +6,6 @@ from . import wom_utilities as wu
     
 # Automate meshes
 class OBJECT_OT_wom_setup_mesh(bpy.types.Operator):
-
     """Automate rotation on the selected wheels"""
     bl_idname = 'object.wom_wheel_setup_mesh'
     bl_label = 'Wheel-O-Matic: Mesh setup'
@@ -14,8 +13,6 @@ class OBJECT_OT_wom_setup_mesh(bpy.types.Operator):
 
     
     def execute(self,context):
-        # remove any existing automation
-        bpy.ops.object.wom_wheel_remove_automation()
 
         # re-register the global logic in case the user somehow deleted it
         wu.register_wom_wheel_logic()
@@ -26,17 +23,15 @@ class OBJECT_OT_wom_setup_mesh(bpy.types.Operator):
         else:
             self.report({'WARNING'}, ws.automate_fail)
 
-        # turn locators on
-        wom_ui = bpy.context.scene.wom_ui
-        if wom_ui.b_draw_locators == False:
+        # turn on locators
+        drawing_locators = wu.locator_draw_handler_exists()
+        if not drawing_locators:
             bpy.ops.object.wom_draw_locators('INVOKE_DEFAULT')
-            wom_ui.b_draw_locators == True
         return {'FINISHED'}
 
 
 # Automate pose bone
 class OBJECT_OT_wom_setup_bone(bpy.types.Operator):
-
     """Automate rotation of selected bone"""
     bl_idname = 'object.wom_wheel_setup_bone'
     bl_label = 'Wheel-O-Matic: Bone setup'
@@ -44,6 +39,7 @@ class OBJECT_OT_wom_setup_bone(bpy.types.Operator):
 
 
     def execute(self,context):
+        
         # re-register the global logic in case the user somehow deleted it
         wu.register_wom_wheel_logic()
 
@@ -53,11 +49,10 @@ class OBJECT_OT_wom_setup_bone(bpy.types.Operator):
         else:
             self.report({'WARNING'}, ws.automate_fail)
 
-        # turn locators on
-        wom_ui = bpy.context.scene.wom_ui
-        if wom_ui.b_draw_locators == False:
+        # turn on locators
+        drawing_locators = wu.locator_draw_handler_exists()
+        if not drawing_locators:
             bpy.ops.object.wom_draw_locators('INVOKE_DEFAULT')
-            wom_ui.b_draw_locators == True
         return {'FINISHED'}
 
 
@@ -124,9 +119,11 @@ class OBJECT_OT_refresh_wheel_logic(bpy.types.Operator):
 
     def execute(self,context):
         wu.refresh_wheel_logic()
-        wom_ui = bpy.context.scene.wom_ui
-        bpy.ops.object.wom_draw_locators('INVOKE_DEFAULT')
-        wom_ui.b_draw_locators == True
+
+        # turn on locators
+        drawing_locators = wu.locator_draw_handler_exists()
+        if not drawing_locators:
+            bpy.ops.object.wom_draw_locators('INVOKE_DEFAULT')
 
         return{'FINISHED'}
 

@@ -16,8 +16,7 @@ class WOM_UI_Properties(bpy.types.PropertyGroup):
                     return object
 
     # UI forward facing properties
-    b_apply_trasforms       :   bpy.props.BoolProperty (name = 'Clean Geo Transforms', default=False, description = ws.desc_apply_trasforms)
-    f_locator_scale         :   bpy.props.FloatProperty (name = 'Scale Locators', default=1.0,min=0.01,description = ws.desc_locator_scale)
+    f_locator_scale         :   bpy.props.FloatProperty (name = ws.name_loc_scale_global, default=1.0,min=0.01,description = ws.desc_locator_scale)
     p_wheel_obj             :   bpy.props.PointerProperty(name = '', type=bpy.types.Object,poll=valid_wheel_object, description = ws.desc_wheel_obj)
     world_forward_axis      :   bpy.props.EnumProperty(
                                     name= '',

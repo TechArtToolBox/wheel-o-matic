@@ -135,17 +135,9 @@ class OBJECT_OT_wom_draw_locators(bpy.types.Operator):
 
     def invoke(self, context, event):
         
-        # remove any existing handler
-        existing_class = bpy.app.driver_namespace.get(self.dns_key)
-        if existing_class:
-            try:
-                existing_class.remove_handler()
-            except:
-                print(ws.locator_remove_warn)
+        # Remove any existing handler
+        wu.locator_draw_handler_remove(self)
 
-        # update UI
-        wom_ui = bpy.context.scene.wom_ui
-        wom_ui.b_draw_locators = True
 
         # register wom objects on scene
         wom_driven_meshes = wu.get_wom_driven_meshes()
@@ -161,6 +153,10 @@ class OBJECT_OT_wom_draw_locators(bpy.types.Operator):
 
         # register this version of the class in the driver_namespace
         bpy.app.driver_namespace[self.dns_key] = self
+
+        # update UI
+        wom_ui = bpy.context.scene.wom_ui
+        wom_ui.b_draw_locators = True
 
         if context.area.type == 'VIEW_3D':
             args = (self, context,self.shader,self.color,self.x_coords, self.y_coords)
@@ -199,24 +195,8 @@ class OBJECT_OT_wom_remove_locators(bpy.types.Operator):
 
     def execute(self,context):
 
-        # Get the existing draw handler
-        dns_key = ws.dns_key
-        existing_class = bpy.app.driver_namespace.get(dns_key)
-
-        # Attempt to remove the draw handler with it's remove method.
-        if existing_class:
-            try:
-                existing_class.remove_handler()
-            except:
-                pass
-
-            # Completely remove the reference. 
-            # If unable, inform the user they may need to restart Blender to remove the locators
-            try:
-                del bpy.app.driver_namespace[dns_key]
-            except:
-                self.report({'WARNING'}, ws.locator_remove_warn)
-
+        # Remove the handler
+        wu.locator_draw_handler_remove(self)
 
         # redraw the 3d view, as it sometimes won't update 
         for area in bpy.context.window.screen.areas:

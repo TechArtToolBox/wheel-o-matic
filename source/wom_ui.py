@@ -1,5 +1,6 @@
 import bpy
 from . import wom_strings as ws
+from . import wom_utilities as wu
   
 
 class VIEW3D_PT_wheel_o_matic(bpy.types.Panel):
@@ -109,17 +110,21 @@ class VIEW3D_PT_wheel_o_matic_utilities(bpy.types.Panel):
         allow_adjust = utilities_panel_logic()
         col2.enabled = allow_adjust
         col.separator()
-        box_scene = col.box()
-        box_scene.label(text='For Entire Scene:')
-        col3 = box_scene.column()
-        if wom_ui.b_draw_locators == False:
-            col3.operator('object.wom_draw_locators',text=ws.text_toggle_locators,icon='HIDE_ON')
-        elif wom_ui.b_draw_locators == True:
+        box_locators = col.box()
+        col3 = box_locators.column()
+        col3.label(text='For Locators:')
+        locator_draw = wu.locator_draw_handler_exists()
+        if locator_draw == True:
             col3.operator('object.wom_remove_locators',text=ws.text_toggle_locators,icon='HIDE_OFF')
+        else:
+            col3.operator('object.wom_draw_locators',text=ws.text_toggle_locators,icon='HIDE_ON')
         col3.prop(wom_ui,'f_locator_scale')
-        col3.separator()
-        col3.operator('object.wom_remove_stray_data',text=ws.text_remove_stray)
-        col3.operator('object.wom_refresh_wheel_logic',text=ws.text_refresh_logic)
+        col.separator()
+        box_scene = col.box()
+        col4 = box_scene.column()
+        col4.label(text='For Entire Scene:')
+        col4.operator('object.wom_remove_stray_data',text=ws.text_remove_stray)
+        col4.operator('object.wom_refresh_wheel_logic',text=ws.text_refresh_logic)
 
 
 

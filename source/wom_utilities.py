@@ -10,17 +10,17 @@ def wom_wheel_logic(self=None,parent_matrix=None):
     It is loaded into the driver namespace, and then referenced
     by each wheel's driver to generate rotation information.
     """
-    if not self or not parent_matrix:
+    if not self:
         return 0
     
     if self.id_data.type == 'ARMATURE':
         obj = bpy.data.objects[self.id_data.name].pose.bones[self.name]
         armature = obj.id_data
-        parent_bone = obj.parent
-        if parent_bone:
-            p_mtx = parent_matrix @ parent_bone.matrix
+        armature_matrix = armature.matrix_world
+        if obj.parent:
+            p_mtx = armature_matrix @ parent_matrix
         else:
-            p_mtx = parent_matrix
+            p_mtx = armature_matrix
     else:
         obj = bpy.data.objects[self.id_data.name]
         p_mtx = parent_matrix
@@ -39,12 +39,13 @@ def wom_wheel_logic(self=None,parent_matrix=None):
     traveled = (change.magnitude)
     change_direction = change.normalized()
     dot_scalar = change_direction.dot(forward)
-    obj.wom.position_old = current_pos
     distance = (traveled*dot_scalar*obj.wom_auto_rotation_power)
     radians = distance/(radius*forward_mag) + obj.wom_auto_rotation
     obj.wom_auto_rotation = radians
+    obj.wom.position_old = current_pos
 
     return radians
+
 
 
 #### Automation Utilities
@@ -83,6 +84,9 @@ def mesh_wheel_bulk_setup():
 def mesh_wheel_setup(wheel,forward_axis):
     """Automate rotation of a mesh wheel"""
 
+    # remove any existing wom control
+    remove_wom_control(wheel)
+
     # set unique wom id
     wom_id = set_wom_id(wheel)
 
@@ -98,6 +102,7 @@ def mesh_wheel_setup(wheel,forward_axis):
                 wheel_parent = constraint.target
                 wheel_geo_info.parent = wheel_parent
                 wheel_geo_info.child_of_const = True
+                break
 
     # otherwise auto create a parent and connect it all to that
     auto_parent = None
@@ -108,14 +113,14 @@ def mesh_wheel_setup(wheel,forward_axis):
     # setup wheel logic
     drive_wheel(wheel,wheel_geo_info)
 
-    # create rotation empty
+    # create rotation helper
     rotator = create_custom_empty(wheel.name,wom_id,ws.type_rotator,draw=False,hide=False)
     rotator.parent = wheel_geo_info.parent
 
-    # drive rotation empty
+    # drive rotation helper
     drive_wom_rotator(wheel,rotator,wheel_geo_info.rotation_axis)
 
-    # make the final connection
+    # make the final connection between wheel geo and rotation helper
     constraint = constraint_final_rotation(wheel,rotator,wheel_geo_info.rotation_axis)
     if wheel_geo_info.invert_rotation:
         setattr(constraint,f'invert_{wheel_geo_info.rotation_axis}', True)
@@ -123,15 +128,16 @@ def mesh_wheel_setup(wheel,forward_axis):
     # make the wheel a child of the auto parent if it was created
     if auto_parent:
         parent_default(wheel,auto_parent)
-        # match collections
+        # put the auto parent and rotator in the same collection(s) as the wheel
         collection_match(wheel,[auto_parent,rotator])
     else:
+        # put the rotator in the same collection(s) as the wheel
         collection_match(wheel_geo_info.parent,[rotator])
 
     # deselect
     wheel.select_set(False)
 
-    # if existing_draw_class:
+    # Add the wheel to the wom objects in scene for locator drawing
     wom_reference = bpy.context.scene.wom.wom_reference_collection.add()
     wom_reference.wom_object = wheel
 
@@ -185,13 +191,14 @@ def bone_setup():
     # connect bone automation
     drive_wheel(selected_bone,wheel_info)
 
-    # create rotation empty, make child of armature
+    # create rotation helper, make child of armature
     rotator = create_custom_empty(selected_bone.name,wom_id,ws.type_rotator,draw=False,hide=False)
     rotator.parent = armature
 
-    # drive rotation empty
+    # drive rotation helper
     drive_wom_rotator(selected_bone,rotator,local_rotation_axis,armature)
 
+    # make final connection between rotation helper and pose bone
     constraint = constraint_final_rotation(selected_bone,rotator,local_rotation_axis)
     if invert_rotation:
         setattr(constraint,f'invert_{local_rotation_axis}', True)
@@ -220,8 +227,10 @@ def drive_wheel(target,wheel_geo_info):
     id_data = target.id_data
     wheel = wheel_geo_info.wheel_object
 
+    is_bone = False
     # for bones
     if id_data.type =='ARMATURE':
+        is_bone = True
         bone = target
         armature = bone.id_data
         wheel_geo_info.parent = armature
@@ -265,7 +274,7 @@ def drive_wheel(target,wheel_geo_info):
             if wheel_geo_info.child_of_const == True:
                 offset = wheel_geo_info.parent.matrix_world.inverted() @ location_only_matrix
 
-            # No parent, we're creating one. Do it manually though cuz the paren transform isn't accurate on creation
+            # No parent, we're creating one. Do it manually though cuz the parent transform isn't accurate on creation
             else:
                 fake_parent_matrix = location_only_matrix @ mathutils.Matrix.Translation(mathutils.Vector((0,0,-wheel_geo_info.radius)))
                 offset = fake_parent_matrix.inverted() @ location_only_matrix
@@ -283,24 +292,39 @@ def drive_wheel(target,wheel_geo_info):
     fcurve = t.driver_add(ws.wom_auto_rotation)
     driver = fcurve.driver
     driver.use_self = True
-    driver.expression = 'wom_wheel_logic(self,wom_parent_matrix)'
     var = driver.variables.new()
     var.type = 'SINGLE_PROP'
     var.name = 'wom_parent_matrix'
     targets = var.targets
-    targets[0].id = w.parent
-    targets[0].data_path = 'matrix_world'
+    if is_bone:
+        armature = t.id_data
+        # bone that has a parent bone
+        if t.parent:
+            targets[0].id = armature
+            targets[0].data_path = f'pose.bones["{t.parent.name}"].matrix'
+            driver.expression = 'wom_wheel_logic(self,wom_parent_matrix)'
+        
+        else:
+            targets[0].id = armature
+            targets[0].data_path = f'matrix_world'
+            driver.expression = 'wom_wheel_logic(self,wom_parent_matrix)'
+    else:
+        targets[0].id = w.parent
+        targets[0].data_path = 'matrix_world'
+        driver.expression = 'wom_wheel_logic(self,wom_parent_matrix)'
+    
 
-    # update scene
-    scene = bpy.context.scene.name
-    current_frame = bpy.data.scenes[scene].frame_current
-    bpy.data.scenes[scene].frame_set(current_frame)
+    # update scene 
+    bpy.context.view_layer.update()
+
+    # set initial rotation to zero
     t[ws.wom_auto_rotation] = 0.0
 
     # Set property defaults
     setattr(t.wom,ws.wom_forward_axis,w.forward)
     setattr(t,ws.wom_radius,w.radius)
     setattr(t,ws.wom_rotation_power,1.0)
+
 
 
 #### Connection Utilities
@@ -438,13 +462,52 @@ def get_local_rotation_axis_mesh(matrix_world,global_rotation_axis):
     return local_rotation_axis, invert_rotation
 
 
-def get_wheel_bottom(obj):
-    """ Run through all vertices in a mesh to find the lowest point in the Z axis"""
-    world_verts = [obj.matrix_world @ vertex.co for vertex in obj.data.vertices]
-    all_z = []
-    for v in world_verts:
-        all_z.append(v[2])
+def get_wheel_bottom(obj,bone = None):
+    """ 
+    Run through all vertices in a mesh to find the lowest point in the Z axis.
+    This is done on a copy of the mesh from the depsgraph to account
+    for any modifiers that may be changing the shape of the mesh.
+    """
+
+    # get evaluated mesh
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    object_eval = obj.evaluated_get(depsgraph)
+    mesh_from_eval = object_eval.to_mesh()
+
+
+    # see if the wheel is bound to an armature
+    is_skinned = False
+    for modifier in obj.modifiers:
+        if modifier.type == 'ARMATURE':
+                is_skinned = True
+                break
+
+    if is_skinned:
+        # TODO Edge case fix for 1.0.1: if a mesh is skinned, using the evaluated mesh can 
+        # sometimes cause an incorrect ground contact offset if any parent pose bone up the chain
+        # has translation in the Z axis. Doing it this way, ground contact only has a 
+        #  chance of being wrong if the mesh has modifiers that change
+        # mesh shape. Easily solved by the user by adjusting wheel radius for now. 
+        world_verts = [obj.matrix_world @ vertex.co for vertex in obj.data.vertices]
+        all_z = []
+        for v in world_verts:
+            all_z.append(v[2])
+            # wheel_matrix = get_armature_deformed_wheel_global_matrix(obj,bone,armature)
+            # location_only_matrix = mathutils.Matrix.Translation(wheel_matrix.translation)
+
+    else:
+    # collect all vertices in world space
+        world_verts = [obj.matrix_world @ vertex.co for vertex in mesh_from_eval.vertices]
+        all_z = []
+        for v in world_verts:
+            all_z.append(v[2])
+
+    # clear the temp mesh
+    object_eval.to_mesh_clear()
+
+    # return the result of the lowest vertex
     return (min(all_z))
+
 
 
 #### Wheel Pose Bone Utilities
@@ -522,6 +585,7 @@ def __local_axis_and_inversion(axis_vectors,world_rotation_vector):
         invert_rotation = True
 
     return local_rotation_axis, invert_rotation
+
 
 
 #### Utilities for all
@@ -692,7 +756,6 @@ def remove_stray_wom_data_from_scene():
                                 armature.driver_remove(driver.data_path, -1)
 
 
-
 def refresh_wheel_logic():
     """
     If the addon/extention is uninstalled while a file is open that
@@ -754,6 +817,8 @@ def clear_rotation():
             if bone:
                 if bone.get(ws.wom_auto_rotation):
                     setattr(bone,ws.wom_auto_rotation,0.0)
+                    
+    # force scene update (for some reason bpy.context.view_layer.update() doesn't work)
     current_scene = bpy.context.scene.name
     current_frame = bpy.data.scenes[current_scene].frame_current
     bpy.data.scenes[current_scene].frame_set(current_frame)
@@ -820,10 +885,11 @@ def remove_wom_control(wheel_obj):
 
     # Remove wom driver for mesh
     else:
-        drivers = wheel_obj.animation_data.drivers
-        for driver in drivers: 
-            if 'wom_wheel_logic' in driver.driver.expression:
-                wheel_obj.driver_remove(driver.data_path, -1)
+        if wheel_obj.animation_data:
+            drivers = wheel_obj.animation_data.drivers
+            for driver in drivers: 
+                if 'wom_wheel_logic' in driver.driver.expression:
+                    wheel_obj.driver_remove(driver.data_path, -1)
 
     # Remove top level properties
     properties = [ws.wom_auto_rotation,ws.wom_radius,ws.wom_rotation_power]
@@ -859,6 +925,7 @@ def parent_default(child,parent):
     """Non-ops version of default Blender parenting type"""
     child.parent = parent
     child.matrix_parent_inverse = parent.matrix_world.inverted()
+
 
 
 #### Utilities for locator drawing
@@ -950,6 +1017,38 @@ def is_valid_reference(item):
     return False
 
 
+def locator_draw_handler_exists():
+    """ Check to see if the locator draw handler exists"""
+    # Get the existing draw handler
+    dns_key = ws.dns_key
+    existing_class = bpy.app.driver_namespace.get(dns_key)
+    if existing_class:
+        return True
+    else:
+        return False
+
+def locator_draw_handler_remove(operator):
+    """ Remove the existing draw handler for wom locators. """
+    # Get the existing draw handler
+    dns_key = ws.dns_key
+    existing_class = bpy.app.driver_namespace.get(dns_key)
+
+    # Attempt to remove the draw handler with it's remove method.
+    if existing_class:
+        try:
+            existing_class.remove_handler()
+        except:
+            pass
+
+        # Completely remove the reference. 
+        # If unable, inform the user they may need to restart Blender to remove the locators
+        try:
+            del bpy.app.driver_namespace[dns_key]
+        except:
+            operator.report({'WARNING'}, ws.locator_remove_warn)
+
+
+
 #### Generators
 
 def create_custom_empty(name,wom_id,suffix,draw=False,hide=False):
@@ -1036,10 +1135,10 @@ def create_auto_parent_geo(wheel_info,wom_id):
     return curve_obj
 
 
-
 def register_wom_wheel_logic():
     """Register the global wheel logic driver expression for the current file."""
     bpy.app.driver_namespace['wom_wheel_logic'] = wom_wheel_logic
+
 
 
 #### Helper Classes
