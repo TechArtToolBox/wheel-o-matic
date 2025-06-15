@@ -8,10 +8,10 @@ Works on vehicles, works on splines, works with meshes and bones.
  ![one_wheel_demo](https://github.com/user-attachments/assets/2480f7b2-eaab-451c-9092-4c1ab9def830)
 
  #### Wheels On Vehicles:
- ![vehicle_demo_S2G_HQ128](https://github.com/user-attachments/assets/d1070134-beb8-40aa-9d7e-82dd23334676)
+ ![wheels_on_vehicles_demo](https://github.com/user-attachments/assets/d1070134-beb8-40aa-9d7e-82dd23334676)
 
- #### Precise Rotation For All Wheels:
-![vehicle_demo_roll_accuracy_no_rim_loop](https://github.com/user-attachments/assets/48008a20-98a7-4f69-be2c-8e0d8ba187f2)
+ #### Accurate Rotation Automatically:
+![wheel_roll_demo](https://github.com/user-attachments/assets/48008a20-98a7-4f69-be2c-8e0d8ba187f2)
 
 <br>
 <br>
@@ -21,16 +21,16 @@ Works on vehicles, works on splines, works with meshes and bones.
 - Install like any other Blender add-on/extension.
 - Wheel-O-Matic will be located in the 3D View sidebar
   
-  ![image](https://github.com/user-attachments/assets/ad9e03ea-c06c-46a7-892f-918fa3375f2e)
+  ![wheel_o_matic_tab](https://github.com/user-attachments/assets/ad9e03ea-c06c-46a7-892f-918fa3375f2e)
 <br>
 
 ## Mesh Wheels quickstart
 
-  - Make sure each wheel points in either X or Y and has it's origin at its center.
+  - Make sure each wheel to be automated points in either X or Y and has it's origin at its center.
   - Select the wheel(s) to be automated.
-  - In the Wheel-O-Matic tab, click '**Automate**' to apply the automation. Move the parent to see the result:
+  - In the Wheel-O-Matic tab, click '**Automate**' to apply the automation. Move the vehicle to see the result:
     
-    ![wheels_quickstart_64c_240px](https://github.com/user-attachments/assets/191b5f5e-b6ab-4659-98cc-5a8e2f69ed8f)
+    ![image](https://github.com/user-attachments/assets/191b5f5e-b6ab-4659-98cc-5a8e2f69ed8f)
     
   - If a wheel has no parent, an auto parent will be created:
     
@@ -51,6 +51,9 @@ Works on vehicles, works on splines, works with meshes and bones.
   - Select the pose bone in the 3D view.
   - In the Wheel-O-Matic tab, under 'Reference Wheel Geo' use the picker to select the mesh associated with this bone.
   - click 'Automate' to automate the bone's rotation based on the wheel's dimensions.
+ 
+  ![image](https://github.com/user-attachments/assets/681d9130-e7e0-4b8c-b913-c8a0f7e43d4e)
+
  
   
 ## In Depth Mesh Wheel Setup
