@@ -12,4 +12,3 @@ license = ["SPDX:GPL-3.0-or-later"]
 
 [permissions]
 Python = "Wheel-O-Matic uses Python to drive wheel rotation, you may be prompted to allow it depending on Blender version"
-

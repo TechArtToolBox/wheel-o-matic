@@ -3,7 +3,7 @@ import bpy
 from . import wom_strings as ws
 from . import wom_utilities as wu
 
-    
+
 # Automate meshes
 class OBJECT_OT_wom_setup_mesh(bpy.types.Operator):
     """Automate rotation on the selected wheels"""

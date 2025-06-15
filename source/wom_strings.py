@@ -20,7 +20,7 @@ wom_rotation_power          = 'wom_auto_rotation_power'
 
 
 #### types of wom objects
-type_auto_parent            = 'auto_parent'
+type_auto_parent            = 'wom_auto_parent'
 type_rotator                = 'wom_rotator'
 type_target                 = 'target'
 
