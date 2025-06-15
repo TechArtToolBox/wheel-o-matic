@@ -73,7 +73,11 @@ Works on vehicles, works on splines, works with meshes and bones.
 **3. Test the Results**
   - If a wheel has no parent, a controller will be created. Use this controller to move the wheel around and check that it rolls correctly.
   - If a wheel HAS a parent, the parent (or anything higher up the chain) can be moved to see the wheels rotate along with the movement.
-  - Locators will also be created. These can be used to make sure the wheel is setup correctly. The locator(s) should be at the base of the wheel(s), and have arrows that point in the forward and reverse direction of the wheel(s).
+  - Locators will also be created. These can be used to make sure the wheel is setup correctly. The locator(s) should be at the base of the wheel(s), and have arrows that point in the forward and reverse direction of the wheel(s). They should follow along with the wheel as it moves <br>![locator_position](https://github.com/user-attachments/assets/c6c245f0-7c6e-4b42-9546-d6a96c49c6c4)
+
+    
+
+
 
 ## Adjust Panel
 These options become available when a single automated mesh wheel, or single automated bone is selected. Both values can be keyed as needed.
