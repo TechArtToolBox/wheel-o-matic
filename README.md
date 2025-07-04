@@ -19,7 +19,7 @@ Works on vehicles, works on splines, works with meshes and bones.
 
  
 
- #### Accurate Rotation No Matter What:
+ #### Mathematically Precise Rotations:
 ![wheel_roll_demo](https://github.com/user-attachments/assets/48008a20-98a7-4f69-be2c-8e0d8ba187f2)
 
 <br>
@@ -33,7 +33,7 @@ Works on vehicles, works on splines, works with meshes and bones.
   ![wheel_o_matic_tab](https://github.com/user-attachments/assets/ad9e03ea-c06c-46a7-892f-918fa3375f2e)
 <br>
 
-## Mesh Wheels quickstart
+## Mesh Wheels quick start
 
   - Make sure each wheel to be automated points in either X or Y and has it's origin at its center.
   - Select the wheel(s) to be automated.
@@ -53,13 +53,13 @@ Works on vehicles, works on splines, works with meshes and bones.
      
 
 
-## Bone Driven Wheels quickstart
+## Bone Driven Wheels quick start
 - Be sure that the bone(s) can already rotate the wheel(s) they control correctly, and that they do so on a single axis.
-- Select an armature, and enter Pose mode. The Wheel-O-Matic UI will adjust to match bone setup.
+- Select an armature, and enter Pose mode.
 - For each bone that drives a wheel:
   - Select the pose bone in the 3D view.
   - In the Wheel-O-Matic tab, under 'Reference Wheel Geo' use the picker to select the mesh associated with this bone.
-  - click 'Automate' to automate the bone's rotation based on the wheel's dimensions.
+  - click 'Automate' to automate the bone's rotation.
  
   ![image](https://github.com/user-attachments/assets/681d9130-e7e0-4b8c-b913-c8a0f7e43d4e)
 
