@@ -817,11 +817,18 @@ def clear_rotation():
             if bone:
                 if bone.get(ws.wom_auto_rotation):
                     setattr(bone,ws.wom_auto_rotation,0.0)
-                    
-    # force scene update (for some reason bpy.context.view_layer.update() doesn't work)
-    current_scene = bpy.context.scene.name
-    current_frame = bpy.data.scenes[current_scene].frame_current
-    bpy.data.scenes[current_scene].frame_set(current_frame)
+
+        # force update the driver expression so that it 
+        # re-runs the logic to match zero rotation, thus redrawing the 3d view
+        anim_data = item.animation_data
+        if anim_data:
+            drivers = item.animation_data.drivers
+            if drivers:
+                for driver in drivers: 
+                    if 'wom_wheel_logic' in driver.driver.expression:
+                        driver.driver.expression = 'wom_wheel_logic(self,wom_parent_matrix)'
+
+
 
 
 def remove_automation_bulk():

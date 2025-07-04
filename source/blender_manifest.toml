@@ -2,7 +2,7 @@ schema_version = "1.0.0"
 id = "wheel_o_matic"
 version = "1.0.0"
 name = "Wheel-O-Matic"
-tagline = "Automatic wheel rotation in any direction. Works with meshes and bones"
+tagline = "Automatic wheel rotation in any direction"
 maintainer = "TechArtToolBox"
 type = "add-on"
 website = "https://github.com/TechArtToolBox/wheel-o-matic/"
@@ -10,5 +10,3 @@ tags = ["Rigging","Animation"]
 blender_version_min = "4.2.0"
 license = ["SPDX:GPL-3.0-or-later"]
 
-[permissions]
-Python = "Wheel-O-Matic uses Python to drive wheel rotation, you may be prompted to allow it depending on Blender version"
