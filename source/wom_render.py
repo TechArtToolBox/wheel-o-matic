@@ -38,12 +38,14 @@ def locators_draw_callback(self, context,shader,color,x_coords,y_coords):
     wom_references = bpy.context.scene.wom.wom_reference_collection
     for ref in wom_references:
         obj = ref.wom_object
-        is_valid = wu.is_valid_reference(obj)
-        if is_valid == True:
-            if obj.type == 'ARMATURE':
-                wom_driven_armatures.append(obj)
-            elif obj.type =='MESH':
-                wom_driven_meshes.append(obj)
+        # if the object is visible, see if it is valid and add it. 
+        if obj.visible_get():
+            is_valid = wu.is_valid_reference(obj)
+            if is_valid == True:
+                if obj.type == 'ARMATURE':
+                    wom_driven_armatures.append(obj)
+                elif obj.type =='MESH':
+                    wom_driven_meshes.append(obj)
 
 
     # get existing draw class
