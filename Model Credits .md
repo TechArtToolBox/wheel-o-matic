@@ -13,6 +13,8 @@ sourced from and modified from this model:
 https://www.blenderkit.com/get-blenderkit/ce470647-f889-40bc-a9b1-8829252b5a37/  
 Credits to Lucas Vasseur
 
+
+### Various Model Examples:
 <b>Pennyfarthest Bicycle:</b>    
   (https://skfb.ly/6ABSB) by Parker (Kobi) Troiani is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
