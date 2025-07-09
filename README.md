@@ -36,6 +36,7 @@ Works on vehicles, works on splines, works with meshes and bones.
 ## Mesh Wheels quick start
 
   - Make sure each wheel to be automated points in either X or Y and has it's origin at its center.
+  - Each wheel should already be able to rotate around a single axis, and rotate like you would expect a wheel to rotate. 
   - Select the wheel(s) to be automated.
   - In the Wheel-O-Matic tab, click '**Automate**' to apply the automation. Move the vehicle to see the result:
     
