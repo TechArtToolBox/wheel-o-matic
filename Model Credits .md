@@ -3,12 +3,12 @@
 ## Overview Video:
 
 ### Example Wheels:  
-<b>Tire:</b>  
+<b>Example Tire:</b>  
 sourced from and modified from this model:  
 https://www.blenderkit.com/get-blenderkit/e8a58537-3114-4962-a5c5-60fdb0346f1c/  
 Credits to Rodrigo Marini
 
-<b>Rim:</b>  
+<b>Example Rim:</b>  
 sourced from and modified from this model:  
 https://www.blenderkit.com/get-blenderkit/ce470647-f889-40bc-a9b1-8829252b5a37/  
 Credits to Lucas Vasseur
