@@ -21,12 +21,11 @@ Credits to Adel Daryabeygi
 <b>Pennyfarthest Bicycle:</b>    
   (https://skfb.ly/6ABSB) by Parker (Kobi) Troiani is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
-<b>Flintstones Car:</b>  
+<b>Flintstone's Car:</b>  
   (https://skfb.ly/onYMK) by erl.matc is licensed under CC Attribution-NonCommercial-ShareAlike (http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 
-
-## Practical Example Videos:
+### Practical Example Videos Model Credits:
 
 <b>BMW Model:</b>  
 https://download.blender.org/demo/test/BMW27.blend.zip
