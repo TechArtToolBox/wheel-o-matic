@@ -17,15 +17,12 @@ Credits to Lucas Vasseur
 https://www.blenderkit.com/get-blenderkit/e7495b9a-0ea9-4369-a3ad-ced69f71fcab/  
 Credits to Adel Daryabeygi
 
-### Various Model Examples:
+### Example Vehicles:
 <b>Pennyfarthest Bicycle:</b>    
   (https://skfb.ly/6ABSB) by Parker (Kobi) Troiani is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 <b>Flintstone's Car:</b>  
   (https://skfb.ly/onYMK) by erl.matc is licensed under CC Attribution-NonCommercial-ShareAlike (http://creativecommons.org/licenses/by-nc-sa/4.0/)
-
-
-### Practical Example Videos Model Credits:
 
 <b>BMW Model:</b>  
 https://download.blender.org/demo/test/BMW27.blend.zip
