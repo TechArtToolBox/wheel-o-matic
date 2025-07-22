@@ -24,7 +24,10 @@ See the documentation below for how to use. Video Tutorials can also be found he
 <br>
 
 ## Installation
-- [Download the latest Wheel-O-Matic version here](https://github.com/TechArtToolBox/wheel-o-matic/blob/main/wheel_o_matic_v1.0.0.zip)
+- [Download directly from Blender here](https://extensions.blender.org/add-ons/wheel-o-matic/)  
+  Alternatively, Wheel-O-Matic can be found in the extensions preferences panel for Blender 4.2 and above  
+  (Edit> Preferences> Get Extensions)
+- [Or download from GitHub here](https://github.com/TechArtToolBox/wheel-o-matic/blob/main/wheel_o_matic_v1.0.0.zip)
 - Install like any other Blender add-on/extension.
 - Wheel-O-Matic will be located in the 3D View sidebar
   
