@@ -1,18 +1,23 @@
 # Wheel-O-Matic
 Blender add-on to automate the rotation of any wheel, in any direction.  
 Works on vehicles, works on curves, works with meshes and bones.  
-(Blender 3.0 and above)
+Install as an extension for Blender 4.2 and above.  
+Install as an add-on for Blender 3.0 -> 4.1.  
+(Written documentation below ↓)
 
-**Official Blender Version:**  
+## Quick Links
+**Download From Blender:**  
 [https://extensions.blender.org/add-ons/wheel-o-matic/](https://extensions.blender.org/add-ons/wheel-o-matic/)  
 
-**Latest Version Here on GitHub**  
+**Or Download From GitHub:**  
 [https://github.com/TechArtToolBox/wheel-o-matic/blob/main/wheel_o_matic_v1.0.0.zip](https://github.com/TechArtToolBox/wheel-o-matic/blob/main/wheel_o_matic_v1.0.0.zip)
 
-See the documentation below for how to use. Video Tutorials can also be found here:  
-[Wheel-O-Matic Getting Started Playlist](https://www.youtube.com/playlist?list=PLY5_r8hBoCVy7fIXbRdR6SprFaGgF5K8I)
+**Video Tutorials:**  
+[Wheel-O-Matic Getting Started (YouTube Playlist)](https://www.youtube.com/playlist?list=PLY5_r8hBoCVy7fIXbRdR6SprFaGgF5K8I)  
 
 
+
+## Quick Examples
  #### Single Wheels:
  ![one_wheel_demo](https://github.com/user-attachments/assets/2480f7b2-eaab-451c-9092-4c1ab9def830)
 
