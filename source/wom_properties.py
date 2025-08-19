@@ -38,6 +38,7 @@ class WOM_Object_Properties(bpy.types.PropertyGroup):
     # internal for wheel logic
     forward_axis            :   bpy.props.StringProperty()
     position_old            :   bpy.props.FloatVectorProperty()
+    rotation_old            :   bpy.props.FloatProperty()
     wom_id                  :   bpy.props.StringProperty()
     wom_driven              :   bpy.props.BoolProperty()
     wom_driven_armature     :   bpy.props.BoolProperty()

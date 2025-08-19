@@ -40,9 +40,9 @@ def wom_wheel_logic(self=None,parent_matrix=None):
     change_direction = change.normalized()
     dot_scalar = change_direction.dot(forward)
     distance = (traveled*dot_scalar*obj.wom_auto_rotation_power)
-    radians = distance/(radius*forward_mag) + obj.wom_auto_rotation
-    obj.wom_auto_rotation = radians
+    radians = distance/(radius*forward_mag) + obj.wom.rotation_old
     obj.wom.position_old = current_pos
+    obj.wom.rotation_old = radians
 
     return radians
 
@@ -319,6 +319,7 @@ def drive_wheel(target,wheel_geo_info):
 
     # set initial rotation to zero
     t[ws.wom_auto_rotation] = 0.0
+    t.wom[ws.wom_rotation_old] = 0.0
 
     # Set property defaults
     setattr(t.wom,ws.wom_forward_axis,w.forward)
@@ -811,12 +812,16 @@ def clear_rotation():
         if item.type == 'MESH':
             if item.get(ws.wom_auto_rotation):
                 setattr(item,ws.wom_auto_rotation,0.0)
+            if item.wom.get(ws.wom_rotation_old):
+                setattr(item.wom,ws.wom_rotation_old,0.0)
 
         elif item.type == 'ARMATURE':
             bone = bpy.context.active_pose_bone
             if bone:
                 if bone.get(ws.wom_auto_rotation):
                     setattr(bone,ws.wom_auto_rotation,0.0)
+                if bone.wom.get(ws.wom_rotation_old):
+                    setattr(bone.wom,ws.wom_rotation_old,0.0)
 
         # force update the driver expression so that it 
         # re-runs the logic to match zero rotation, thus redrawing the 3d view

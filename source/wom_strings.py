@@ -10,6 +10,7 @@ wom_forward_axis            = 'forward_axis'
 wom_id                      = 'wom_id'
 wom_type                    = 'wom_type'
 wom_position_old            = 'position_old'
+wom_rotation_old            = 'rotation_old'
 
 
 # for regular properties
