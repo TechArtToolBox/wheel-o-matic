@@ -1,4 +1,4 @@
-# Wheel-O-matic v 1.0.0 
+# Wheel-O-matic v 1.0.1
 # Blender addon for automatic wheel rotation
 # Any reference in script to 'wom' is shorthand for Wheel-O-Matic related data
 
@@ -6,7 +6,7 @@
 bl_info = {
     'name'          : 'Wheel-O-Matic',
     'author'        : 'Tech Art Tool Box',
-    'version'       : (1,0,0),
+    'version'       : (1,0,1),
     'blender'       : (3,0,0),
     'location'      : '3D Viewport > Sidebar > Wheel-O-Matic',
     'description'   : 'Automatic wheel rotation in any direction. Works with meshes and bones.',
