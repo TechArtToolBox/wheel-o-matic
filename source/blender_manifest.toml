@@ -1,6 +1,6 @@
 schema_version = "1.0.0"
 id = "wheel_o_matic"
-version = "1.0.1"
+version = "1.0.2"
 name = "Wheel-O-Matic"
 tagline = "Automatic wheel rotation in any direction"
 maintainer = "TechArtToolBox"

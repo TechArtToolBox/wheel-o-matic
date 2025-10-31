@@ -967,7 +967,7 @@ def get_ground_matrix_for_wom_mesh(wom_object):
         p = wom_object.wom.wom_defined_parent
         p_mtx = p.matrix_world
         o_mtx = wom_object.wom.wom_axis_offset
-        r = wom_object.get(ws.wom_radius)
+        r = getattr(wom_object,ws.wom_radius)
         r_mtx = mathutils.Matrix.Translation(mathutils.Vector((0,0,-r)))
         g_mtx = p_mtx @ o_mtx @ r_mtx
         return g_mtx
@@ -984,7 +984,7 @@ def get_ground_matrix_for_wom_bone(bone,armature):
     else:
         p_mtx = armature_mtx
     o_mtx = bone.wom.wom_axis_offset
-    r = bone.get(ws.wom_radius)
+    r = getattr(bone,ws.wom_radius)
     r_mtx = mathutils.Matrix.Translation(mathutils.Vector((0,0,-r)))
     g_mtx = p_mtx @ o_mtx @ r_mtx
     return g_mtx
